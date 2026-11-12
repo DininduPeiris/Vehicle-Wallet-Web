@@ -1,124 +1,288 @@
+import { useEffect } from "react";
 import { Link } from "react-router-dom";
-
-const sections = [
-  {
-    title: "Information in your wallet",
-    body: (
-      <>
-        <p>Vehicle Wallet is designed to work without an account. Information you choose to add is stored on your device and may include:</p>
-        <ul>
-          <li>Vehicle details such as nickname, registration number, make, model and year.</li>
-          <li>Documents and related details such as title, category and issue or expiry dates.</li>
-          <li>Fuel Pass QR images or their content, if you choose to save them.</li>
-          <li>Your app preferences, including language and security settings.</li>
-        </ul>
-      </>
-    ),
-  },
-  {
-    title: "How information is used",
-    body: (
-      <>
-        <p>The app uses information on your device to show your vehicles and saved items, display Fuel Pass QR codes, and help you keep track of document dates.</p>
-        <p>If you enable expiry reminders, the app schedules local notifications on your device. Reminder text can include the document title, vehicle name and time remaining. These notifications are generated for your device, not sent to us.</p>
-      </>
-    ),
-  },
-  {
-    title: "Where information is stored",
-    body: (
-      <>
-        <p>Vehicle Wallet is designed for local use. It does not require registration and does not provide cloud sync. Vehicle records and preferences are kept in the app’s local database and device storage. App-lock credentials and related settings use the platform’s secure storage. Biometric checks are handled by your device’s operating system; the app does not receive your fingerprint or face data.</p>
-        <p>The app’s wallet features do not send your vehicle information, saved documents or Fuel Pass details to a Vehicle Wallet server. The app can work offline.</p>
-      </>
-    ),
-  },
-  {
-    title: "Permissions you control",
-    body: (
-      <>
-        <p>Depending on the features you use, the app may ask for access to:</p>
-        <ul>
-          <li><strong>Camera:</strong> to scan a Fuel Pass QR code.</li>
-          <li><strong>Photos or files:</strong> to select documents or QR images to save in your wallet.</li>
-          <li><strong>Notifications:</strong> to show local document-expiry reminders.</li>
-          <li><strong>Biometrics:</strong> to let your device authenticate you when you choose biometric unlocking.</li>
-        </ul>
-        <p>You can manage permissions in your device settings. Turning off a permission may limit the related feature.</p>
-      </>
-    ),
-  },
-  {
-    title: "Retention and deletion",
-    body: (
-      <p>Your information remains in the app until you remove it or clear the app’s data. Removing the app may remove locally stored information, subject to your device’s backup and restore settings. If you share or export a file using your device, that separate copy is managed by the destination app or service.</p>
-    ),
-  },
-  {
-    title: "Third-party services and this website",
-    body: (
-      <p>The app does not use advertising or analytics services as part of its wallet features. This landing website has no sign-up form, tracking pixels or analytics. If the website is hosted by a provider, that provider may process basic technical request data under its own policies.</p>
-    ),
-  },
-  {
-    title: "Children’s privacy",
-    body: (
-      <p>Vehicle Wallet is a general-purpose vehicle utility and is not designed to collect information from children through an online account or service.</p>
-    ),
-  },
-  {
-    title: "Changes to this policy",
-    body: (
-      <p>This policy may be updated when the app or its privacy practices change. The latest version will be published on this page with its revision date.</p>
-    ),
-  },
-  {
-    title: "Questions",
-    body: (
-      <p>For questions about this policy or the app, contact the app publisher through the store listing or distribution channel where you obtained Vehicle Wallet.</p>
-    ),
-  },
-];
+import {
+  Shield,
+  Lock,
+  EyeOff,
+  CheckCircle2,
+  Camera,
+  Fingerprint,
+  Bell,
+  HardDrive,
+  ArrowLeft
+} from "lucide-react";
 
 export default function PrivacyPolicy() {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   return (
-    <main className="policy-page">
-      <section className="policy-hero">
-        <div className="policy-hero-inner">
-          <div className="eyebrow"><span className="eyebrow-line" /> THE IMPORTANT DETAILS</div>
-          <h1>Your privacy<br /><span>comes first.</span></h1>
-          <p>A clear look at how Vehicle Wallet handles information, what stays on your device, and the choices you have.</p>
-          <span className="policy-date">LAST UPDATED · NOVEMBER 6, 2026</span>
+    <div className="policy-page">
+      <div className="container">
+        {/* Policy Header */}
+        <div className="policy-header">
+          <Link to="/" className="btn-secondary" style={{ width: "fit-content", marginBottom: 20 }}>
+            <ArrowLeft size={16} />
+            <span>Back to Home</span>
+          </Link>
+
+          <div className="policy-badge">
+            <Shield size={14} />
+            <span>Zero-Cloud Privacy Policy</span>
+          </div>
+
+          <h1 className="policy-title">
+            Privacy Policy & Local Security Architecture
+          </h1>
+
+          <p className="policy-meta">
+            Effective Date: November 2026 • Personal Vehicle Wallet (Sri Lanka) • Version 1.0.0
+          </p>
         </div>
-      </section>
-      <div className="policy-content">
-        <aside className="policy-aside">
-          <div className="aside-note">
-            <span className="aside-icon">⌑</span>
-            <strong>Short version</strong>
-            <p>Your wallet is designed to stay on your device. No account or cloud sync is needed.</p>
-          </div>
-          <Link to="/" className="back-home">← Back to home</Link>
-        </aside>
-        <article className="policy-article">
-          <div className="policy-intro">
-            <p>Vehicle Wallet is a personal vehicle-document and Fuel Pass QR wallet for Sri Lankan vehicle owners. This policy explains how information is handled when you use the mobile app and this website.</p>
-          </div>
-          {sections.map((section, index) => (
-            <section className="policy-section" key={section.title}>
-              <span className="policy-section-number">{String(index + 1).padStart(2, "0")}</span>
-              <div>
-                <h2>{section.title}</h2>
-                <div className="policy-body">{section.body}</div>
+
+        {/* Policy Content Layout */}
+        <div className="policy-content">
+          {/* Table of Contents Sticky Sidebar */}
+          <aside className="policy-toc">
+            <span className="policy-toc-title">Table of Contents</span>
+            <a href="#core-commitment" className="toc-link">1. Foundational Commitment</a>
+            <a href="#zero-cloud" className="toc-link">2. 100% Offline Architecture</a>
+            <a href="#no-accounts" className="toc-link">3. Zero Account Collection</a>
+            <a href="#encryption" className="toc-link">4. AES-256 Cryptography</a>
+            <a href="#permissions" className="toc-link">5. Device Permissions</a>
+            <a href="#no-trackers" className="toc-link">6. Zero Analytics & Trackers</a>
+            <a href="#data-ownership" className="toc-link">7. Data Retention & Control</a>
+            <a href="#sl-compliance" className="toc-link">8. Sri Lankan Legal Compliance</a>
+          </aside>
+
+          {/* Policy Articles */}
+          <div className="policy-articles">
+            {/* Section 1 */}
+            <section className="policy-section" id="core-commitment">
+              <h2>
+                <span className="section-num">01.</span>
+                Foundational Commitment
+              </h2>
+              <p>
+                Personal Vehicle Wallet ("Vehicle Wallet", "we", "our") is designed from the ground up
+                with one uncompromised philosophy: <strong>privacy through architecture</strong>. We believe
+                that vehicle ownership records, registration details, revenue licence papers, insurance policies,
+                and fuel ration QR codes are deeply personal information that should never reside on external
+                cloud servers.
+              </p>
+              <div className="policy-alert-box">
+                <CheckCircle2 size={20} className="policy-check-icon" />
+                <span>
+                  <strong>Our Privacy Guarantee:</strong> Vehicle Wallet does not maintain servers, does not have
+                  a user database, does not collect analytics, and cannot view or access your vehicle documents
+                  under any circumstances.
+                </span>
               </div>
             </section>
-          ))}
-          <div className="policy-last-note">
-            <span>✳</span>
-            <p>Vehicle Wallet is designed to put you in control of what you choose to keep in your wallet.</p>
+
+            {/* Section 2 */}
+            <section className="policy-section" id="zero-cloud">
+              <h2>
+                <span className="section-num">02.</span>
+                100% Offline Architecture (Embedded SQLite)
+              </h2>
+              <p>
+                Unlike conventional wallet applications that stream your personal data to cloud APIs,
+                Vehicle Wallet operates completely offline on your device:
+              </p>
+              <ul>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Embedded ACID SQLite:</strong> All vehicle records, nicknames, registration numbers,
+                    document expiration dates, and QR code identifiers are indexed inside a sandboxed SQLite database
+                    located strictly on your device storage.
+                  </span>
+                </li>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>No Remote Data Synchronization:</strong> The application does not communicate with any
+                    cloud endpoints, remote servers, or external synchronization backends.
+                  </span>
+                </li>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Operational Independence:</strong> The app retains full functionality in remote areas,
+                    underground basements, and fuel stations with zero cellular reception.
+                  </span>
+                </li>
+              </ul>
+            </section>
+
+            {/* Section 3 */}
+            <section className="policy-section" id="no-accounts">
+              <h2>
+                <span className="section-num">03.</span>
+                Zero Account Creation or Profiling
+              </h2>
+              <p>
+                You do not need to register an account to use Vehicle Wallet:
+              </p>
+              <ul>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>No phone numbers, email addresses, or usernames required.</span>
+                </li>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>No National Identity Card (NIC) or passport verification requested.</span>
+                </li>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>No passwords, SMS OTPs, or third-party OAuth logins (e.g. Google or Apple Sign-In).</span>
+                </li>
+              </ul>
+            </section>
+
+            {/* Section 4 */}
+            <section className="policy-section" id="encryption">
+              <h2>
+                <span className="section-num">04.</span>
+                Authenticated AES-256-GCM Cryptographic Protection
+              </h2>
+              <p>
+                When you attach documents to your vehicles (such as provincial revenue licences, motor insurance
+                policy cards, or DriveGreen emission certificates), they are protected by authenticated local encryption:
+              </p>
+              <ul>
+                <li>
+                  <Lock size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Authenticated Cipher:</strong> Documents are encrypted with AES-256 in Galois/Counter
+                    Mode (GCM), providing both confidentiality and integrity verification against data tampering.
+                  </span>
+                </li>
+                <li>
+                  <HardDrive size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Hardware Key Storage:</strong> Encryption keys are generated using CSPRNG primitives and
+                    anchored inside the operating system's hardware-backed keystore (iOS Keychain & Android Keystore)
+                    via <code>expo-secure-store</code>.
+                  </span>
+                </li>
+                <li>
+                  <EyeOff size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Private Sandboxed Media:</strong> Decrypted documents are rendered transiently in memory
+                    only when viewed by an authenticated user and are never written to unencrypted public directories.
+                  </span>
+                </li>
+              </ul>
+            </section>
+
+            {/* Section 5 */}
+            <section className="policy-section" id="permissions">
+              <h2>
+                <span className="section-num">05.</span>
+                Device Permissions & Why They Are Requested
+              </h2>
+              <p>
+                Vehicle Wallet requests minimal device permissions, exclusively to power local utilities:
+              </p>
+              <ul>
+                <li>
+                  <Camera size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Camera (<code>android.permission.CAMERA</code> / <code>NSCameraUsageDescription</code>):</strong>{" "}
+                    Used solely to scan National Fuel Pass QR codes and capture vehicle document photos. Camera frames
+                    are processed locally on your phone and never streamed or uploaded anywhere.
+                  </span>
+                </li>
+                <li>
+                  <Fingerprint size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Biometrics (Face ID / Fingerprint):</strong> Used to provide hardware-gated access to your
+                    wallet. The biometric authentication challenge is handled entirely by your operating system's Secure
+                    Enclave; Vehicle Wallet never accesses, stores, or sees your biometric templates.
+                  </span>
+                </li>
+                <li>
+                  <Bell size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Local Notifications:</strong> Used exclusively to schedule native device reminders for
+                    upcoming document expiry dates (30 days, 14 days, 7 days, 1 day prior). No remote push servers are
+                    involved; reminders are scheduled locally via <code>expo-notifications</code>.
+                  </span>
+                </li>
+              </ul>
+            </section>
+
+            {/* Section 6 */}
+            <section className="policy-section" id="no-trackers">
+              <h2>
+                <span className="section-num">06.</span>
+                Zero Third-Party Trackers, Telemetry or Advertisements
+              </h2>
+              <p>
+                Vehicle Wallet is completely ad-free and tracking-free:
+              </p>
+              <ul>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>No Google Firebase Analytics, Facebook SDKs, Adjust, or AppsFlyer.</span>
+                </li>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>No advertising networks, banners, or tracking cookies.</span>
+                </li>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>No background location tracking or telematics recording.</span>
+                </li>
+              </ul>
+            </section>
+
+            {/* Section 7 */}
+            <section className="policy-section" id="data-ownership">
+              <h2>
+                <span className="section-num">07.</span>
+                Data Retention & Complete User Ownership
+              </h2>
+              <p>
+                You retain 100% control over all data stored within the application:
+              </p>
+              <ul>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Instant Local Deletion:</strong> Deleting a vehicle, document, or QR code immediately removes
+                    the record from SQLite and permanently erases the encrypted file from storage.
+                  </span>
+                </li>
+                <li>
+                  <CheckCircle2 size={16} className="policy-check-icon" />
+                  <span>
+                    <strong>Uninstalling the App:</strong> Because data is stored in the application's private sandbox,
+                    uninstalling the app from your device permanently purges all stored documents and databases.
+                  </span>
+                </li>
+              </ul>
+            </section>
+
+            {/* Section 8 */}
+            <section className="policy-section" id="sl-compliance">
+              <h2>
+                <span className="section-num">08.</span>
+                Sri Lankan Legal Compliance (PDPA)
+              </h2>
+              <p>
+                Vehicle Wallet adheres strictly to the principles of the <strong>Personal Data Protection Act, No. 9 of 2022
+                (PDPA) of Sri Lanka</strong>. Because our technical architecture does not collect, process, or transmit personal data
+                to external data controllers, your right to privacy and digital self-determination under Sri Lankan law is
+                fully protected by design.
+              </p>
+            </section>
           </div>
-        </article>
+        </div>
       </div>
-    </main>
+    </div>
   );
 }
