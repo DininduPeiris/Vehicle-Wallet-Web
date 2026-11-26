@@ -1,138 +1,127 @@
-import { useState } from "react";
+import { useState, type ChangeEvent } from "react";
 import { Link, useLocation } from "react-router-dom";
-import { Menu, X, Shield } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import appIcon from "../assets/icon.jpg";
+import {
+  useWebsiteLocalization,
+  WEBSITE_LANGUAGE_NAMES,
+} from "../localization/website";
 
 export default function SiteHeader() {
   const { pathname } = useLocation();
+  const { language, setLanguage, t } = useWebsiteLocalization();
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
-
   const isHome = pathname === "/";
+  const featuresTarget = isHome ? "#features" : "/#features";
+
+  function closeMenu() {
+    setMobileMenuOpen(false);
+  }
+
+  function handleLanguageChange(event: ChangeEvent<HTMLSelectElement>) {
+    const nextLanguage = event.currentTarget.value;
+    if (nextLanguage === "en" || nextLanguage === "si" || nextLanguage === "ta") {
+      setLanguage(nextLanguage);
+    }
+  }
 
   return (
     <header className="site-header">
       <div className="container nav-wrap">
-        {/* Brand Link */}
-        <Link to="/" className="brand" aria-label="Vehicle Wallet Home">
-          <div className="brand-icon-wrapper">
-            <img
-              src={appIcon}
-              alt="Vehicle Wallet App Icon"
-              className="brand-icon-img"
-            />
-          </div>
-          <div className="brand-info">
-            <div className="brand-name">
-              Vehicle Wallet
-              <span className="brand-tag">Offline</span>
-            </div>
-            <span className="brand-sub">Sri Lanka Digital Vehicle & Fuel Pass</span>
-          </div>
+        <Link to="/" className="brand" aria-label={t("navHome")}>
+          <span className="brand-icon-wrapper">
+            <img src={appIcon} alt="" className="brand-icon-img" />
+          </span>
+          <span className="brand-info">
+            <span className="brand-name">Vehicle Wallet</span>
+            <span className="brand-sub">{t("brandTagline")}</span>
+          </span>
         </Link>
 
-        {/* Desktop Nav Links */}
-        <nav className="nav-links">
-          {isHome ? (
-            <>
-              <a href="#demo" className="nav-link">
-                Interactive Demo
-              </a>
-              <a href="#features" className="nav-link">
-                Features
-              </a>
-              <a href="#vehicles" className="nav-link">
-                Vehicle Types
-              </a>
-              <a href="#security" className="nav-link">
-                Architecture
-              </a>
-              <Link to="/privacy-policy" className="nav-link">
-                Privacy Policy
-              </Link>
-            </>
-          ) : (
-            <>
-              <Link to="/" className="nav-link">
-                Home
-              </Link>
-              <Link to="/#features" className="nav-link">
-                Features
-              </Link>
-              <Link to="/privacy-policy" className="nav-link active">
-                Privacy Policy
-              </Link>
-            </>
-          )}
-        </nav>
-
-        {/* Action Buttons */}
-        <div className="nav-actions">
+        <nav className="nav-links" aria-label={t("navHome")}>
+          <Link to="/" className={`nav-link${isHome ? " active" : ""}`}>
+            {t("navHome")}
+          </Link>
+          <Link to={featuresTarget} className="nav-link">
+            {t("navFeatures")}
+          </Link>
           <Link
             to="/privacy-policy"
-            className="btn-secondary"
-            title="Privacy First Architecture"
+            className={`nav-link${!isHome ? " active" : ""}`}
           >
-            <Shield size={16} />
-            <span>Privacy First</span>
+            {t("navPrivacy")}
           </Link>
+        </nav>
 
-          {/* Mobile Menu Button */}
+        <div className="nav-actions">
+          <label className="visually-hidden" htmlFor="site-language">
+            {t("languageLabel")}
+          </label>
+          <select
+            className="language-select"
+            id="site-language"
+            value={language}
+            onChange={handleLanguageChange}
+          >
+            {Object.entries(WEBSITE_LANGUAGE_NAMES).map(([code, name]) => (
+              <option key={code} value={code}>
+                {name}
+              </option>
+            ))}
+          </select>
+
           <button
             className="mobile-nav-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            aria-label="Toggle navigation menu"
+            type="button"
+            onClick={() => setMobileMenuOpen((open) => !open)}
+            aria-label={mobileMenuOpen ? t("closeMenu") : t("openMenu")}
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-nav-menu"
           >
-            {mobileMenuOpen ? <X size={20} /> : <Menu size={20} />}
+            {mobileMenuOpen ? (
+              <X size={20} aria-hidden="true" />
+            ) : (
+              <Menu size={20} aria-hidden="true" />
+            )}
           </button>
         </div>
       </div>
 
-      {/* Mobile Nav Dropdown */}
       {mobileMenuOpen && (
-        <div className="mobile-nav-menu">
-          <Link
-            to="/"
-            className="nav-link"
-            onClick={() => setMobileMenuOpen(false)}
+        <nav
+          className="mobile-nav-menu"
+          id="mobile-nav-menu"
+          aria-label={t("navHome")}
+        >
+          <label className="mobile-language-label" htmlFor="mobile-site-language">
+            {t("languageLabel")}
+          </label>
+          <select
+            className="language-select mobile-language-select"
+            id="mobile-site-language"
+            value={language}
+            onChange={handleLanguageChange}
           >
-            Home
+            {Object.entries(WEBSITE_LANGUAGE_NAMES).map(([code, name]) => (
+              <option key={code} value={code}>
+                {name}
+              </option>
+            ))}
+          </select>
+          <Link to="/" className="nav-link" onClick={closeMenu}>
+            {t("navHome")}
           </Link>
-          <a
-            href="#demo"
-            className="nav-link"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Interactive Demo
-          </a>
-          <a
-            href="#features"
-            className="nav-link"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Features
-          </a>
-          <a
-            href="#vehicles"
-            className="nav-link"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Vehicle Types
-          </a>
-          <a
-            href="#security"
-            className="nav-link"
-            onClick={() => setMobileMenuOpen(false)}
-          >
-            Security & SQLite
-          </a>
+          <Link to={featuresTarget} className="nav-link" onClick={closeMenu}>
+            {t("navFeatures")}
+          </Link>
           <Link
             to="/privacy-policy"
             className="nav-link"
-            onClick={() => setMobileMenuOpen(false)}
+            onClick={closeMenu}
           >
-            Privacy Policy
+            {t("navPrivacy")}
           </Link>
-        </div>
+        </nav>
       )}
     </header>
   );
