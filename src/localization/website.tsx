@@ -32,6 +32,8 @@ const en = {
   heroTitle: "Your vehicle essentials, all in one place.",
   heroDescription:
     "Keep vehicle details, documents and Fuel Pass QR codes on your phone. Access them offline when you need them.",
+  playStoreLead: "Get it on",
+  appStoreLead: "Download on the",
   heroFeaturesLink: "Explore features",
   heroPrivacyLink: "Your privacy",
   featuresTitle: "A simpler way to manage your vehicle",
@@ -91,6 +93,8 @@ const si: Record<WebsiteCopyKey, string> = {
   heroTitle: "ඔබේ වාහනයට අවශ්‍ය සියල්ල, එකම තැනක.",
   heroDescription:
     "වාහන විස්තර, ලේඛන සහ ඉන්ධන QR කේත ඔබගේ දුරකථනයේ සුරකින්න. අවශ්‍ය විට අන්තර්ජාලය නොමැතිවද භාවිතා කරන්න.",
+  playStoreLead: "Google Play වෙතින්",
+  appStoreLead: "App Store වෙතින් බාගන්න",
   heroFeaturesLink: "විශේෂාංග බලන්න",
   heroPrivacyLink: "ඔබේ පෞද්ගලිකත්වය",
   featuresTitle: "ඔබේ වාහනය කළමනාකරණය කිරීම දැන් පහසුයි",
@@ -148,6 +152,8 @@ const ta: Record<WebsiteCopyKey, string> = {
   heroTitle: "உங்கள் வாகனத் தேவைகள் அனைத்தும் ஒரே இடத்தில்.",
   heroDescription:
     "வாகன விவரங்கள், ஆவணங்கள் மற்றும் எரிபொருள் QR குறியீடுகளை உங்கள் தொலைபேசியில் சேமியுங்கள். தேவைப்படும்போது இணையமின்றியும் அணுகலாம்.",
+  playStoreLead: "Google Play-இல்",
+  appStoreLead: "App Store-இல் பதிவிறக்கவும்",
   heroFeaturesLink: "அம்சங்களைப் பாருங்கள்",
   heroPrivacyLink: "உங்கள் தனியுரிமை",
   featuresTitle: "உங்கள் வாகனத்தை நிர்வகிப்பது இப்போது எளிது",

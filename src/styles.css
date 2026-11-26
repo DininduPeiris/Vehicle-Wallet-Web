@@ -1978,6 +1978,18 @@ a:focus-visible {
   margin-top: 30px;
 }
 
+.home-store-group {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.home-store-group .btn-store {
+  min-width: 180px;
+}
+
 .home-highlights {
   display: flex;
   justify-content: center;
@@ -2243,6 +2255,17 @@ a:focus-visible {
     width: fit-content;
     margin: 32px auto 0;
     text-align: left;
+  }
+
+  .home-store-group {
+    flex-direction: column;
+    align-items: stretch;
+    max-width: 280px;
+    margin-inline: auto;
+  }
+
+  .home-store-group .btn-store {
+    justify-content: flex-start;
   }
 
   .home-feature-grid,
